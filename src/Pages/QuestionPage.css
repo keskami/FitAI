@@ -1,0 +1,34 @@
+/* QuestionPage.css */
+
+.question-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #add8e6; /* Light blue background color */
+  }
+  
+  .question-container {
+    position: relative;
+  }
+  
+  .question-box {
+    background-color: #ffffff; /* White box background color */
+    padding: 20px;
+    margin: 10px;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .question-box.active {
+    transform: translateX(50%);
+  }
+  
+  .side-questions {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .side-questions .question-box {
+    cursor: pointer;
+  }
+  
