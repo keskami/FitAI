@@ -57,3 +57,14 @@ export const Button = styled.button`
     background-color: ${(props) => props.hoverColor};
   }
 `;
+
+export const Input = styled.input`
+  font-size:25px;
+  width: 60%;
+  height:30%;
+  padding: 0;
+  margin-top: 50px;
+  border: none;
+  background-color: #F2F7FE;
+  text-align: right:
+`;

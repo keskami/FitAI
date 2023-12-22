@@ -5,7 +5,8 @@ import {
     QuestionsPageContainer,
     QuestionBox,
     ButtonContainer,
-    Button
+    Button,
+    Input
 } from './QuestionsStyles';
 
 const QuestionsPage = () => {
@@ -28,7 +29,7 @@ const QuestionsPage = () => {
 
     const questionData = [
         { buttons: ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'] },
-        { buttons: ['Option 1', 'Option 2', 'Option 3', 'Option 4'] },
+        { input: true }, // Replace buttons with input text field
         { buttons: ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'] },
         { buttons: ['Option 1', 'Option 2'] },
         { buttons: ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'] },
@@ -52,19 +53,25 @@ const QuestionsPage = () => {
                             : handlePrevQuestion(currentQuestion !== questionNumber)
                     )}
                 >
-                    <ButtonContainer>
-                        {questionData[index].buttons.map((buttonContent, buttonIndex) => (
-                            <Button
-                                key={buttonIndex}
-                                backgroundColor={'#F2F7FE'}
-                                hoverColor={`#4A7CBF`}
-                                onClick={(e) => e.stopPropagation()} // Prevent click propagation
-                                style={{ visibility: (questionNumber === currentQuestion ? 'visible' : 'hidden') }}
-                            >
-                                {buttonContent}
-                            </Button>
-                        ))}
-                    </ButtonContainer>
+                    {questionData[index].input ? (
+                        <><Input
+                            type="text"
+                            style={{ visibility: (questionNumber === currentQuestion ? 'visible' : 'hidden') }} /><span style={{ position: 'absolute', top: '50%', transform: 'translateY(50%)', right: '12px', color: '#706E6E', fontSize: '10px' }}>Min</span></>
+                    ) : (
+                        <ButtonContainer>
+                            {questionData[index].buttons.map((buttonContent, buttonIndex) => (
+                                <Button
+                                    key={buttonIndex}
+                                    backgroundColor={'#F2F7FE'}
+                                    hoverColor={`#4A7CBF`}
+                                    onClick={(e) => e.stopPropagation()} // Prevent click propagation
+                                    style={{ visibility: (questionNumber === currentQuestion ? 'visible' : 'hidden') }}
+                                >
+                                    {buttonContent}
+                                </Button>
+                            ))}
+                        </ButtonContainer>
+                    )}
                 </QuestionBox>
             ))}
         </QuestionsPageContainer>
