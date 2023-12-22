@@ -1,87 +1,74 @@
 // src/components/QuestionsPage.js
 
 import React, { useState } from 'react';
-import styled from 'styled-components';
-
-const QuestionsPageContainer = styled.div`
-  background-color: #F2F7FE;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-`;
-
-const QuestionBox = styled.div`
-  background-color: white;
-  width: 95%; /* Adjust the width for a larger box */
-  max-width: 800px;
-  padding: 30px; /* Increase padding for more space inside */
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.5s ease-in-out;
-  cursor: ${(props) => (props.clickable ? 'pointer' : 'auto')};
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;
-`;
-
-const Button = styled.button`
-  background-color: ${(props) => props.backgroundColor};
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${(props) => props.hoverColor};
-  }
-`;
+import {
+    QuestionsPageContainer,
+    QuestionBox,
+    ButtonContainer,
+    Button
+} from './QuestionsStyles';
 
 const QuestionsPage = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(1);
+    const [currentQuestionTransform, setCurrentQuestionTransform] = useState(-1);
+    const [currentQuestion, setCurrentQuestion] = useState(1);
 
-  const handleNextQuestion = () => {
-    setCurrentQuestion((prevQuestion) => (prevQuestion % 5) + 1);
-  };
+    const handleNextQuestion = (clickable) => {
+        if (clickable) {
+            setCurrentQuestionTransform((prevQuestion) => prevQuestion + 2);
+            setCurrentQuestion((prevQuestion) => prevQuestion + 1);
+        }
+    };
 
-  const handlePrevQuestion = () => {
-    setCurrentQuestion((prevQuestion) => (prevQuestion - 2 + 5) % 5 + 1);
-  };
+    const handlePrevQuestion = (clickable) => {
+        if (clickable) {
+            setCurrentQuestionTransform((prevQuestion) => prevQuestion - 2);
+            setCurrentQuestion((prevQuestion) => prevQuestion - 1);
+        }
+    };
 
-  return (
-    <QuestionsPageContainer>
-      {[1, 2, 3, 4, 5].map((questionNumber) => (
-        <QuestionBox
-          key={questionNumber}
-          clickable={currentQuestion === questionNumber}
-          style={{ transform: `translateX(${(questionNumber - currentQuestion) * 100}%)` }}
-          onClick={handleNextQuestion}
-        >
-          <p>Question {questionNumber}</p>
-          <p>Click to move to the next question</p>
-          <ButtonContainer>
-            {Array.from({ length: 4 }, (_, index) => (
-              <Button
-                key={index}
-                backgroundColor={`#5C98EC`}
-                hoverColor={`#4A7CBF`}
-                onClick={(e) => e.stopPropagation()} // Prevent click propagation
-              >
-                Option {index + 1}
-              </Button>
+    const questionData = [
+        { buttons: ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'] },
+        { buttons: ['Option 1', 'Option 2', 'Option 3', 'Option 4'] },
+        { buttons: ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'] },
+        { buttons: ['Option 1', 'Option 2'] },
+        { buttons: ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'] },
+    ];
+
+    return (
+        <QuestionsPageContainer>
+            {[1, 2, 3, 4, 5].map((questionNumber, index) => (
+                <QuestionBox
+                    key={questionNumber}
+                    style={{
+                        transform: (
+                            questionNumber === currentQuestion
+                                ? `translateX(${(questionNumber - currentQuestionTransform) * 100}%) scale(2.8)`
+                                : `translateX(${(questionNumber - currentQuestionTransform) * 100}%) scale(0.7,1.9)`
+                        ),
+                    }}
+                    onClick={() => (
+                        questionNumber === currentQuestion + 1
+                            ? handleNextQuestion(currentQuestion !== questionNumber)
+                            : handlePrevQuestion(currentQuestion !== questionNumber)
+                    )}
+                >
+                    <ButtonContainer>
+                        {questionData[index].buttons.map((buttonContent, buttonIndex) => (
+                            <Button
+                                key={buttonIndex}
+                                backgroundColor={'#F2F7FE'}
+                                hoverColor={`#4A7CBF`}
+                                onClick={(e) => e.stopPropagation()} // Prevent click propagation
+                                style={{ visibility: (questionNumber === currentQuestion ? 'visible' : 'hidden') }}
+                            >
+                                {buttonContent}
+                            </Button>
+                        ))}
+                    </ButtonContainer>
+                </QuestionBox>
             ))}
-          </ButtonContainer>
-        </QuestionBox>
-      ))}
-    </QuestionsPageContainer>
-  );
+        </QuestionsPageContainer>
+    );
 };
 
 export default QuestionsPage;
