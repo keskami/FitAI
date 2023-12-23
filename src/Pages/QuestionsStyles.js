@@ -15,7 +15,6 @@ export const QuestionsPageContainer = styled.div`
   background-color: #F2F7FE;
   height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
   overflow: hidden;
   position: relative;
@@ -30,13 +29,14 @@ export const QuestionBox = styled.div`
   transition: transform 0.5s ease-in-out;
   display:flex;
   padding: 10px 8px;
+  margin-top: 170px;
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-top: 60px;
+  margin-top: 55px;
   width: 100%;
 `;
 
@@ -59,12 +59,25 @@ export const Button = styled.button`
 `;
 
 export const Input = styled.input`
-  font-size:25px;
-  width: 60%;
+  font-size:23px;
+  width: 62%;
   height:30%;
-  padding: 0;
   margin-top: 50px;
   border: none;
   background-color: #F2F7FE;
-  text-align: right:
+  text-align: right;
+  direction: rtl;
+  padding: 0 21px 0 0;
+`;
+
+export const Name = styled.p`
+  font-size: 20px;
+  font-family: 'Inter';
+  font-weight: bold;
+`;
+
+export const Subheader = styled.p`
+  color: #706E6E;
+  font-family: 'Inter';
+  font-size: 15px;
 `;
