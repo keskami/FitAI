@@ -8,7 +8,7 @@ const HomePage = () => {
   return (
     <HomePageContainer>
       <CircleInitials>MW</CircleInitials>
-      <Link to="/questions"><StartButton>Start Questionnaire</StartButton></Link>
+      <Link to="/questions"><StartButton>Start Workout</StartButton></Link>
     </HomePageContainer>
   );
 };

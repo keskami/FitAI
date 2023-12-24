@@ -6,7 +6,6 @@ export const HomePageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 `;
 
 export const CircleInitials = styled.div`
@@ -33,7 +32,11 @@ export const StartButton = styled.button`
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  margin-top: 40px;
+  margin-top: auto;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
 
   &:hover {
     background-color: #4A7CBF;

@@ -8,7 +8,11 @@ import {
     Button,
     Input,
     Name,
-    Subheader
+    Subheader,
+    QuestionNum,
+    NumSpan,
+    Label,
+    Question
 } from './QuestionsStyles';
 import { CircleInitials } from './HomeStyles';
 
@@ -93,18 +97,18 @@ const QuestionsPage = () => {
     }
 
     const questionData = [
-        { buttons: ['Cardiovascular', 'Strength', 'HIIT', 'Flexibility/Mobility', 'Functional'] },
-        { input: true }, // Replace buttons with input text field
-        { buttons: ['Easy', 'Moderate', 'Vigorous', 'High Intensity'] },
-        { buttons: ['Pop', 'Rock', 'Hip-Hop', 'Electronic', 'Classical'] },
-        { buttons: ['Energetic', 'Motivational', 'Calming', 'Focused'] },
+        { buttons: ['Cardiovascular', 'Strength', 'HIIT', 'Flexibility/Mobility', 'Functional'], label: 'Workout', question: 'Pick your workout' },
+        { input: true, label: 'Duration', question: "What’s the duration of your workout?" }, // Replace buttons with input text field
+        { buttons: ['Easy', 'Moderate', 'Vigorous', 'High Intensity'], label: 'Intensity', question: 'Pick your intensity' },
+        { buttons: ['Pop', 'Rock', 'Hip-Hop', 'Electronic', 'Classical'], label: 'Genre', question: 'Pick a genre' },
+        { buttons: ['Energetic', 'Motivational', 'Calming', 'Focused'], label: 'Atmosphere', question: 'Pick a mood' },
     ];
 
     return (
 
-        <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#F2F7FE' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#F2F7FE', height: '100vh' }}>
             <CircleInitials>MW</CircleInitials>
-            <div style = {{margin: '100px 0 0 90px'}}>
+            <div style={{ margin: '100px 0 0 90px' }}>
                 <Name>Hi Michael,</Name>
                 <Subheader>Tell us about you.</Subheader>
             </div>
@@ -125,6 +129,13 @@ const QuestionsPage = () => {
                                 : handlePrevQuestion(currentQuestion !== questionNumber)
                         )}
                     >
+                        <div style = {{display: 'block', visibility: (questionNumber === currentQuestion ? 'visible' : 'hidden')}}>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <QuestionNum>{questionNumber}<NumSpan>/5</NumSpan></QuestionNum>
+                                <Label>{questionData[index].label}</Label>
+                            </div>
+                            <Question>{questionData[index].question}</Question>
+                        </div>
                         {questionData[index].input ? (
                             <><Input
                                 type="text"
