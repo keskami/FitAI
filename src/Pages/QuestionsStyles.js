@@ -116,3 +116,18 @@ export const Question = styled.p`
   text-align: center;
   margin: 10px 0 0 0;
 `;
+
+export const Submit = styled.button`
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #5C98EC;
+  color: white;
+  padding: 10px;
+  font-size:20px;
+  border-radius: 4px;
+  font-family: Inter;
+  font-weight: bold;
+  border: none;
+`;

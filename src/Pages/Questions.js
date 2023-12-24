@@ -12,7 +12,8 @@ import {
     QuestionNum,
     NumSpan,
     Label,
-    Question
+    Question,
+    Submit
 } from './QuestionsStyles';
 import { CircleInitials } from './HomeStyles';
 
@@ -20,10 +21,10 @@ const QuestionsPage = () => {
     const [currentQuestionTransform, setCurrentQuestionTransform] = useState(-1);
     const [currentQuestion, setCurrentQuestion] = useState(1);
     const [duration, setDuration] = useState('');
-    var workout;
-    var intensity;
-    var genre;
-    var atmosphere;
+    const [workout, setWorkout] = useState('');
+    const [intensity, setIntensity] = useState('');
+    const [genre, setGenre] = useState('');
+    const [atmosphere, setAtmosphere] = useState('');
 
     const handleNextQuestion = (clickable) => {
         if (clickable) {
@@ -40,60 +41,64 @@ const QuestionsPage = () => {
     };
 
     const buttonPress = (index, content) => {
-        if (index === 0) {
+        if (index === 1) {
             if (content === 'Cardiovascular') {
-                workout = 'Cardiovascular';
+                setWorkout('Cardiovascular');
             } else if (content === 'Strength') {
-                workout = 'Strength'
+                setWorkout('Strength');
             } else if (content === 'HIIT') {
-                workout = 'HIIT'
+                setWorkout('HIIT');
             } else if (content === 'Flexibility/Mobility') {
-                workout = 'Flexibility/Mobility'
+                setWorkout('Flexibility/Mobility');
             } else if (content === 'Functional') {
-                workout = 'Functional'
+                setWorkout('Functional');
             }
-            console.log(workout)
-        } else if (index === 1) {
-            if (content === 'Easy') {
-                intensity = 'Easy';
-            } else if (content === 'Moderate') {
-                intensity = 'Moderate'
-            } else if (content === 'Vigorous') {
-                intensity = 'Vigorous'
-            } else if (content === 'High Intensity') {
-                intensity = 'High Intensity'
-            }
-            console.log(intensity)
-        } else if (index === 2) {
-            if (content === 'Pop') {
-                genre = 'Pop';
-            } else if (content === 'Rock') {
-                genre = 'Rock'
-            } else if (content === 'Hip-Hop') {
-                genre = 'Hip-Hop'
-            } else if (content === 'Electronic') {
-                genre = 'Electronic'
-            } else if (content === 'Classical') {
-                genre = 'Classical'
-            }
-            console.log(genre)
         } else if (index === 3) {
-            if (content === 'Energetic') {
-                atmosphere = 'Energetic';
-            } else if (content === 'Motivational') {
-                atmosphere = 'Motivational'
-            } else if (content === 'Calming') {
-                atmosphere = 'Calming'
-            } else if (content === 'Focused') {
-                atmosphere = 'Focused'
+            if (content === 'Easy') {
+                setIntensity('Easy');
+            } else if (content === 'Moderate') {
+                setIntensity('Moderate');
+            } else if (content === 'Vigorous') {
+                setIntensity('Vigorous');
+            } else if (content === 'High Intensity') {
+                setIntensity('High Intensity');
             }
-            console.log(atmosphere)
+        } else if (index === 4) {
+            if (content === 'Pop') {
+                setGenre('Pop');
+            } else if (content === 'Rock') {
+                setGenre('Rock');
+            } else if (content === 'Hip-Hop') {
+                setGenre('Hip-Hop');
+            } else if (content === 'Electronic') {
+                setGenre('Electronic');
+            } else if (content === 'Classical') {
+                setGenre('Classical');
+            }
+        } else if (index === 5) {
+            if (content === 'Energetic') {
+                setAtmosphere('Energetic');
+            } else if (content === 'Motivational') {
+                setAtmosphere('Motivational');
+            } else if (content === 'Calming') {
+                setAtmosphere('Calming');
+            } else if (content === 'Focused') {
+                setAtmosphere('Focused');
+            }
         }
     }
 
     const handleDuration = (e) => {
         setDuration(e.target.value);
         console.log(duration)
+    }
+
+    const submit = () => {
+        console.log({workout})
+        console.log({duration})
+        console.log({intensity})
+        console.log({genre})
+        console.log({atmosphere})
     }
 
     const questionData = [
@@ -114,7 +119,7 @@ const QuestionsPage = () => {
             </div>
             <QuestionsPageContainer>
                 {[1, 2, 3, 4, 5].map((questionNumber, index) => (
-                    <QuestionBox
+                    <><QuestionBox
                         key={questionNumber}
                         style={{
                             transform: (
@@ -129,7 +134,7 @@ const QuestionsPage = () => {
                                 : handlePrevQuestion(currentQuestion !== questionNumber)
                         )}
                     >
-                        <div style = {{display: 'block', visibility: (questionNumber === currentQuestion ? 'visible' : 'hidden')}}>
+                        <div style={{ display: 'block', visibility: (questionNumber === currentQuestion ? 'visible' : 'hidden') }}>
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <QuestionNum>{questionNumber}<NumSpan>/5</NumSpan></QuestionNum>
                                 <Label>{questionData[index].label}</Label>
@@ -149,7 +154,7 @@ const QuestionsPage = () => {
                                         key={buttonIndex}
                                         backgroundColor={'#F2F7FE'}
                                         hoverColor={`#4A7CBF`}
-                                        onClick={(e) => buttonPress(index, buttonContent)} // Prevent click propagation
+                                        onClick={(e) => buttonPress(questionNumber, buttonContent)} // Prevent click propagation
                                         style={{ visibility: (questionNumber === currentQuestion ? 'visible' : 'hidden') }}
                                     >
                                         {buttonContent}
@@ -158,7 +163,10 @@ const QuestionsPage = () => {
                             </ButtonContainer>
                         )}
                     </QuestionBox>
+                        <Submit style={{ visibility: (currentQuestion === 5 ? 'visible' : 'hidden') }} onClick={submit}>Submit</Submit>
+                    </>
                 ))}
+
             </QuestionsPageContainer>
         </div>
     );

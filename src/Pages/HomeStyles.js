@@ -32,7 +32,6 @@ export const StartButton = styled.button`
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  margin-top: auto;
   position: absolute;
   bottom: 20px;
   left: 50%;
