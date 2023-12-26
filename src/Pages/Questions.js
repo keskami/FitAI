@@ -93,12 +93,33 @@ const QuestionsPage = () => {
         console.log(duration)
     }
 
-    const submit = () => {
-        console.log({workout})
-        console.log({duration})
-        console.log({intensity})
-        console.log({genre})
-        console.log({atmosphere})
+    const submit = async () => {
+        const apiUrl = 'http://localhost:3000/api/v1/monkseals/find';
+        const jsonBody = {
+            workout,
+            duration,
+            intensity,
+            genre,
+            atmosphere
+        };
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+              // Additional headers if needed
+            },
+            mode: 'cors',
+            body: JSON.stringify(jsonBody),
+          });
+          
+          // Assuming you want to work with the response JSON, you can do something like this:
+          if (response.ok) {
+            const responseData = await response.json();
+            console.log(responseData);
+          } else {
+            console.error('Error:', response.status, response.statusText);
+          }
     }
 
     const questionData = [
